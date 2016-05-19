@@ -22,21 +22,21 @@ def _consume_seq_num (byte_source):
     return struct.unpack(">Q", session_bytes)[0]
 
 def _consume_packet_msgs (byte_source):
-    msg_count = _consume_message_count(byte_source)
-    return map(lambda i: _consume_message(byte_source),
+    msg_count = _pop_message_count(byte_source)
+    return map(lambda i: _scan_message(byte_source),
                range(msg_count))
 
-def _consume_message (byte_source):
-    msg_size = _consume_message_size(byte_source)
+def _scan_message (byte_source):
+    msg_size = _pop_message_size(byte_source)
     return byte_source.read(msg_size)
 
-def _consume_message_size (byte_source):
-    return _consume_field_size(byte_source)
+def _pop_message_size (byte_source):
+    return _read_field_size(byte_source)
 
-def _consume_message_count (byte_source):
-    return _consume_field_size(byte_source)
+def _pop_message_count (byte_source):
+    return _read_field_size(byte_source)
 
-def _consume_field_size (byte_source):
+def _read_field_size (byte_source):
     n_size_bytes = 2
     size_bytes = byte_source.read(n_size_bytes)
     return struct.unpack(">H", size_bytes)[0]
