@@ -10,7 +10,7 @@ def extract_msgs_from_byte_source (byte_source):
     session_num = _consume_session_num_post_peek(byte_source)
     seq_num = _consume_seq_num(byte_source)
     msgs = _consume_packet_msgs(byte_source)
-    return (session_num, seq_num, len(msgs))
+    return (session_num, seq_num, msgs)
 
 def _consume_session_num_post_peek (byte_source):
     session_bytes = byte_source.read(_get_session_read_bytes())

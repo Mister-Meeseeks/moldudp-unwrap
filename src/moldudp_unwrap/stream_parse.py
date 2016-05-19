@@ -1,10 +1,10 @@
 #!/usr/bin/python
 
 import sys
-import extract as ex
+import consume
 
 in_stream = sys.stdin
 
-while ex.peek_ahead_packets_left(in_stream):
-    print ex.extract_msgs_from_byte_source(in_stream)
+for fmt_str in consume.format_packet_stream_headers(in_stream):
+    print fmt_str
 
