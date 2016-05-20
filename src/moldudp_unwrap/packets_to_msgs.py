@@ -4,7 +4,7 @@ import sys
 import consume
 
 in_stream = sys.stdin
+out_stream = sys.stdout
 
-for fmt_str in consume.format_packet_stream_headers(in_stream):
-    print fmt_str
+consume.packet_stream_to_message_stream(in_stream, out_stream)
 
