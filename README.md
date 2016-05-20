@@ -16,7 +16,9 @@ cd moldudp-unwrap/
 
 This prints packet header data from the sample file.
 
-## Unpacking raw messages
+## Usage
+
+### Unpacking raw messages
 
 Use the ```packets_to_messages``` executable to convert a MoldUDP64 binary source to a binary stream of (length-prefixed) messages. Simply invoke the script. Pass a MoldUDP64 binary source to ```stdin``` and message output exits at ```stdout```
 
@@ -29,13 +31,27 @@ cd moldudp-unwrap/bin/
 
 ```[msg output]``` - Either a writable file path or a pipe mean to receive a raw message binary stream
 
-## Parsing packet headers
+### Parsing packet headers
 
 Packet header information can be read and printed using the ```parse_headers``` executable. Simply follow the QuickStart example, and substitute your own input file or pipe.
 
-## Python libraries
+### Python libraries
 
 Internal libraries can be used in other python applications. Add repo's ```src/``` directory to ```PYTHON_PATH```. Then include a ```import moldudp_unwrap.consume``` directive. See ```src/moldudp_unwrap/consume.py``` for function descriptions.
+
+## Externals
+
+### MoldUDP Protocol
+
+Documentation for the protocol can be found at
+
+http://business.nasdaq.com/Docs/moldudp64_tcm5044-18016.pdf
+
+### Processing NASDAQ ITCH
+
+Most likely you're interested in MoldUDP because it's the transport protocol used for NASDAQ ITCH market data. If so, you'll probably need an ITCH parser. For open-source projects my recommendation would be:
+
+https://github.com/Amay22/NASDAQ-ITCH-5.0-Parser
 
 ## Requirements
 
