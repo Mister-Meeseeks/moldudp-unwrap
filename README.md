@@ -29,7 +29,7 @@ cd moldudp-unwrap/bin/
 
 ```[moldudp input]``` - Either the path to a file or a pipe containing containing MoldUDP64 binary packet stream
 
-```[msg output]``` - Either a writable file path or a pipe mean to receive a raw message binary stream
+```[msg output]``` - Either a writable file path or a pipe meant to receive a raw message binary stream
 
 ### Parsing packet headers
 
