@@ -11,20 +11,33 @@ No installation is required besides cloning the repo. After cloning, test basic 
 
 ```
 cd moldudp-unwrap/
-./bin/parse_headers <tests/mold.sample.dat
+./bin/moldudp --header <tests/mold.sample.dat
 ```
 
 This prints packet header data from the sample file.
+
+## Install
+
+To install an executable binary to the system path, run:
+
+```
+cd moldudp-unwrap/
+./install.sh
+```
+
+This installs a symbolic link to the ```bin/``` executable. You can now call ```moldudp``` from any working directory. By default install target is ```/usr/local/bin/```. If you want a different install target call:
+
+```./install.sh [install target]```
 
 ## Usage
 
 ### Unpacking raw messages
 
-Use the ```packets_to_messages``` executable to convert a MoldUDP64 binary source to a binary stream of (length-prefixed) messages. Simply invoke the script. Pass a MoldUDP64 binary source to ```stdin``` and message output exits at ```stdout```
+Use the ```moldudp``` executable to convert a MoldUDP64 binary source to a binary stream of (length-prefixed) messages. Simply invoke the script. Pass a MoldUDP64 binary source to ```stdin``` and message output exits at ```stdout```
 
 ```
 cd moldudp-unwrap/bin/
-./packets_to_msgs <[moldUdp input] >[msg output]
+./moldudp <[moldUdp input] >[msg output]
 ```
 
 ```[moldudp input]``` - Either the path to a file or a pipe containing containing MoldUDP64 binary packet stream
@@ -33,7 +46,7 @@ cd moldudp-unwrap/bin/
 
 ### Parsing packet headers
 
-Packet header information can be read and printed using the ```parse_headers``` executable. Simply follow the QuickStart example, and substitute your own input file or pipe.
+Packet header information can be read and printed using the ```moldudp``` executable with a ```--header flag```. Simply follow the QuickStart example above, and substitute your own input file or pipe.
 
 ### Python libraries
 
@@ -55,4 +68,4 @@ https://github.com/Amay22/NASDAQ-ITCH-5.0-Parser
 
 ## Requirements
 
-- Python 2
+- Python >=2.7
