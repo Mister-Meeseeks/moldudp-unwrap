@@ -8,7 +8,7 @@ else
     destBinDir=$1
 fi
 
-sourceBin=$scriptDir/bin/moldudp
+sourceBin=$(readlink -f $scriptDir/bin/moldudp)
 destBin=$destBinDir/moldudp
 
 if [[ -e $destBin ]] ; then
