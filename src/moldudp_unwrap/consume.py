@@ -1,6 +1,6 @@
 
 """
-Library contains functions transforming MoldUDP packet streams variosu
+Library contains functions transforming MoldUDP packet streams various
 parsed inputs.
 """
 

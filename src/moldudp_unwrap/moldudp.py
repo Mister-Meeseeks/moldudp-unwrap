@@ -13,12 +13,12 @@ args = parser.parse_args()
 in_stream = sys.stdin
 out_stream = sys.stdout
 
-def readAndPrintHeaders (in_stream):
+def read_and_print_headers (in_stream):
     for fmt_str in consume.format_packet_stream_headers(in_stream):
         print fmt_str
 
 if (args.header):
-    readAndPrintHeaders(in_stream)
+    read_and_print_headers(in_stream)
 else:
     consume.packet_stream_to_message_stream(in_stream, out_stream)
 
