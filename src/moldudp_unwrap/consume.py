@@ -22,6 +22,19 @@ def _write_message_stream(msg_str, msg_stream):
     msg_stream.write(msg_size_bytes)
     msg_stream.write(msg_str)
 
+def split_packets_from_stream (packet_stream, out_stream):
+    """ Reads from a package byte stream, then makes write() calls, where each 
+    call represents the byte array corresponding to one single, complete packet.
+    Args: packet_stream: input stream or object supporting .read(int)
+          message_stream - output stream or object supporting .write(string)
+    """
+    keep_scanning = True
+    while (True):
+        packet_bytes = ex.read_next_packet_bytes(packet_stream)
+        if (len(packet_bytes) == 0):
+            break
+        out_stream.write(packet_bytes)
+
 def format_packet_stream_headers (packet_stream):
     """ Reads from a package stream, returns a generator of strings
     describing packet header content.
