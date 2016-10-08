@@ -46,7 +46,11 @@ cd moldudp-unwrap/bin/
 
 ### Parsing packet headers
 
-Packet header information can be read and printed using the ```moldudp``` executable with a ```--header flag```. Simply follow the QuickStart example above, and substitute your own input file or pipe.
+Packet header information can be read and printed using the ```moldudp``` executable with a ```--header``` flag. Simply follow the QuickStart example above, and substitute your own input file or pipe.
+
+### Multicasting packets
+
+Program can also be used to read the binary stream from stdin and multicast packets in order. Can be used to test live network clients with historical data. Invole the ```moldudp``` executable with ```--multicast [IpAddr]:[Port]``` where IpAddr is the IP address of the multicast group and Port is the port number of the group.
 
 ### Python libraries
 
