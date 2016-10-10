@@ -12,5 +12,4 @@ class Multicaster:
         self._dest = (ip_addr, port)
 
     def write (self, packet_bytes):
-        print len(packet_bytes)
         self._sock.sendto(packet_bytes, self._dest)
