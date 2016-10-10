@@ -28,7 +28,6 @@ def split_packets_from_stream (packet_stream, out_stream):
     Args: packet_stream: input stream or object supporting .read(int)
           message_stream - output stream or object supporting .write(string)
     """
-    keep_scanning = True
     while (True):
         packet_bytes = ex.read_next_packet_bytes(packet_stream)
         if (len(packet_bytes) == 0):
