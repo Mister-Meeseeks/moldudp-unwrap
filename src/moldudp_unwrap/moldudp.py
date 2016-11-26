@@ -29,10 +29,12 @@ def parse_multicast (dest_arg):
         
 if (args.header):
     read_and_print_headers(in_stream)
-elif (args.echo): # Option effectively acts as cat, unless parsing's broke. Only used fo
+elif (args.echo):
+    # Option effectively acts as cat, unless parsing's broke. Used for debugging
     consume.split_packets_from_stream(in_stream, out_stream)
 elif (len(args.multicast) > 0):
     mult_dests = map(parse_multicast, args.multicast)
+    print mult_dests
     cast_socket = multicast.Multicaster(mult_dests)
     consume.split_packets_from_stream(in_stream, cast_socket)
 else:
