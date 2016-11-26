@@ -34,7 +34,6 @@ elif (args.echo):
     consume.split_packets_from_stream(in_stream, out_stream)
 elif (len(args.multicast) > 0):
     mult_dests = map(parse_multicast, args.multicast)
-    print mult_dests
     cast_socket = multicast.Multicaster(mult_dests)
     consume.split_packets_from_stream(in_stream, cast_socket)
 else:
