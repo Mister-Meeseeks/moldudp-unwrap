@@ -8,11 +8,19 @@ def _open_multicast_socket():
     return sock
 
 class Multicaster:
-    def __init__ (self, ip_addr, port):
+    def __init__ (self, dests):
+        self._casters = map(_MulticastChannel, dests)
+        self._throttle_ms = 1
+        
+    def write (self, packet_bytes):
+        for c in self._casters:
+            c.write(packet_bytes)
+            time.sleep(self._throttle_ms / 1000)
+
+class _MulticastChannel:
+    def __init__ (self, (ip_addr, port)):
         self._sock = _open_multicast_socket()
         self._dest = (ip_addr, port)
-        self._throttle_ms = 1
 
     def write (self, packet_bytes):
         self._sock.sendto(packet_bytes, self._dest)
-        time.sleep(self._throttle_ms / 1000.0)
