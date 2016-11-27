@@ -11,6 +11,8 @@ parser.add_argument('--header', action="store_true",
                     help="Parse packet header fields, instead of body")
 parser.add_argument('--multicast', action="append",
                     help="Multicast parsed packets. Format: [IPAddr]:[Port]")
+parser.add_argument('--throttle', default="1",
+                    help="Milliseconds between multicast transmits")
 parser.add_argument('--echo', action="store_true",
                     help="Parse each echo then write bytes, acts as "
                     + "'cat' unless parse broke. Used for testing")
@@ -34,7 +36,7 @@ elif (args.echo):
     consume.split_packets_from_stream(in_stream, out_stream)
 elif (len(args.multicast) > 0):
     mult_dests = map(parse_multicast, args.multicast)
-    cast_socket = multicast.Multicaster(mult_dests)
+    cast_socket = multicast.Multicaster(mult_dests, int(args.throttle))
     consume.split_packets_from_stream(in_stream, cast_socket)
 else:
     consume.packet_stream_to_message_stream(in_stream, out_stream)
