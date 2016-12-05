@@ -34,7 +34,7 @@ if (args.header):
 elif (args.echo):
     # Option effectively acts as cat, unless parsing's broke. Used for debugging
     consume.split_packets_from_stream(in_stream, out_stream)
-elif (len(args.multicast) > 0):
+elif (args.multicast is not None and len(args.multicast) > 0):
     mult_dests = map(parse_multicast, args.multicast)
     cast_socket = multicast.Multicaster(mult_dests, int(args.throttle))
     consume.split_packets_from_stream(in_stream, cast_socket)
