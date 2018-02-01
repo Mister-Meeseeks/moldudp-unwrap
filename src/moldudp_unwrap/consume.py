@@ -43,6 +43,17 @@ def format_packet_stream_headers (packet_stream):
     for unpacked_packet in _iterate_packet_stream(packet_stream):
         yield _format_unpacked_headers(unpacked_packet)
 
+def format_header_msg_joins (packet_stream):
+    """ Reads from a package stream, returns a generator of strings
+    describing the header content for every message (i.e. some headers
+    be duplicated). Useful to line up headers with individual msgs. 
+    Args: packet_stream - input stream or object supporting .read(int)
+    Returns: generator of formatted strings based on packet header
+    """
+    for (sess, seq, msgs) in _iterate_packet_stream(packet_stream):
+        for msg in msgs:
+            yield _format_unpacked_headers((sess, seq, [msg]))
+
 def _format_unpacked_headers ((sesNum, seqNum, msgs)):
     return "SessionNum=%d SeqNum=%d MsgCount=%d MsgSizes=%s" % \
         (sesNum, seqNum, len(msgs), map(len, msgs))
