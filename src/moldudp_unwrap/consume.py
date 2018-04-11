@@ -53,6 +53,7 @@ def format_header_msg_joins (packet_stream):
     for (sess, seq, msgs) in _iterate_packet_stream(packet_stream):
         for msg in msgs:
             yield _format_unpacked_headers((sess, seq, [msg]))
+            seq = seq + 1
 
 def _format_unpacked_headers ((sesNum, seqNum, msgs)):
     return "SessionNum=%d SeqNum=%d MsgCount=%d MsgSizes=%s" % \
