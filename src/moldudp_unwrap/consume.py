@@ -93,7 +93,8 @@ def _iterate_packet_stream (packet_stream):
         yield ex.extract_msgs_from_byte_source(packet_stream)
 
 def _iterate_messages_from_packets (packets, min_seq, max_seq):
-    for (_, _, msg) in _iterate_messages_as_packets(packets, min_seq, max_seq):
+    for (_, _, [msg]) in _iterate_messages_as_packets\
+        (packets, min_seq, max_seq):
         yield msg
 
 def _iterate_messages_as_packets (packet_stream, min_seq, max_seq):
