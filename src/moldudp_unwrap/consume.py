@@ -17,7 +17,7 @@ def packet_stream_to_message_stream (packet_stream, message_stream,
           min_seq - Minimum seq number to cutoff output at (use None to ignore)
           max_seq - Maximum seq number to cutoff output at (use None to ignore)
     """
-    for msg in _iterate_messages_from_packet(packet_stream, min_seq, max_seq):
+    for msg in _iterate_messages_from_packets(packet_stream, min_seq, max_seq):
         _write_message_stream(msg, message_stream)
 
 def _write_message_stream(msg_str, msg_stream):
