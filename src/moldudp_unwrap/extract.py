@@ -2,6 +2,13 @@
 import sys
 import struct
 
+def parse_seq_range (packet_bytes):
+    seq_bytes = packet_bytes[10:18]
+    cnt_bytes = packet_bytes[18:20]
+    seq_num = struct.unpack(">Q", seq_bytes)[0]
+    cnt_num = struct.unpack(">H", cnt_bytes)[0]
+    return (seq_num, seq_num + cnt_num)
+
 def peek_ahead_packets_left (byte_source):
     expected_bytes = _get_packet_peek_bytes()
     read_attempt = _discard_session_ignored(byte_source)
@@ -89,6 +96,3 @@ def _read_field_size (byte_source):
     n_size_bytes = 2
     size_bytes = byte_source.read(n_size_bytes)
     return (struct.unpack(">H", size_bytes)[0], size_bytes)
-
-
-        

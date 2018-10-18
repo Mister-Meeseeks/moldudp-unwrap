@@ -7,10 +7,10 @@ import argparse
 
 parser = argparse.ArgumentParser\
          (description="Unwrap MoldUDP Binary Packet Stream")
-parser.add_argument('--beginSeq', default="", help="Only echo messages with " +
-                    "seqNum >= to [arg]. Only works with normal mode")
-parser.add_argument('--endSeq', default="", help="Only echo messages with " +
-                    "seqNum <= than [arg]. Only works with normal mode")
+parser.add_argument('--beginSeq', default="", help="Only output messages with "+
+                    "seqNum >= to [arg].")
+parser.add_argument('--endSeq', default="", help="Only output messages with " +
+                    "seqNum <= than [arg].")
 parser.add_argument('--header', action="store_true",
                     help="Mode to parse packet header fields, instead of body")
 parser.add_argument('--msgHeader', action="store_true",
@@ -35,7 +35,8 @@ min_seq = int(args.beginSeq) if len(args.beginSeq) else None
 max_seq = int(args.endSeq) if len(args.endSeq) else None
 
 def read_and_print_headers (in_stream):
-    for fmt_str in consume.format_packet_stream_headers(in_stream):
+    for fmt_str in consume.format_packet_stream_headers\
+        (in_stream, min_seq, max_seq):
         print fmt_str
 
 def read_and_print_gap_headers (in_stream):
@@ -58,11 +59,11 @@ elif (args.msgHeader):
 elif (args.gapSeq):
     read_and_print_gap_headers(in_stream)
 elif (args.echo):
-    consume.split_packets_from_stream(in_stream, out_stream)
+    consume.split_packets_from_stream(in_stream, out_stream, min_seq, max_seq)
 elif (args.multicast is not None and len(args.multicast) > 0):
     mult_dests = map(parse_multicast, args.multicast)
     cast_socket = multicast.Multicaster(mult_dests, int(args.throttle))
-    consume.split_packets_from_stream(in_stream, cast_socket)
+    consume.split_packets_from_stream(in_stream, cast_socket, min_seq, max_seq)
 else:
     consume.packet_stream_to_message_stream\
         (in_stream, out_stream, min_seq, max_seq)
