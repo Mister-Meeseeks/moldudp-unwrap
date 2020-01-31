@@ -1,6 +1,7 @@
 
 import sys
 import struct
+from functools import reduce
 
 def parse_seq_range (packet_bytes):
     seq_bytes = packet_bytes[10:18]
@@ -60,15 +61,15 @@ def _consume_seq_num (byte_source):
 
 def _consume_packet_msgs (byte_source):
     (msg_count, count_bytes) = _determine_message_count(byte_source)
-    scan_rets = map(lambda i: _scan_message(byte_source), range(msg_count))
+    scan_rets = [_scan_message(byte_source) for i in range(msg_count)]
     return (_unpack_msgs_from_scans(scan_rets),
             count_bytes + _join_bytes_from_scans (scan_rets))
 
 def _unpack_msgs_from_scans (scan_rets):
-    return map(lambda i: i[0], scan_rets)
+    return [i[0] for i in scan_rets]
 
 def _join_bytes_from_scans (scan_rets):
-    unpacked_bytes = map(lambda i: i[1], scan_rets)
+    unpacked_bytes = [i[1] for i in scan_rets]
     return reduce(lambda x,y: x+y, unpacked_bytes, "")
 
 def _scan_message (byte_source):

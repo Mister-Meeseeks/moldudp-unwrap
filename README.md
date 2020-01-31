@@ -72,4 +72,4 @@ https://github.com/Amay22/NASDAQ-ITCH-5.0-Parser
 
 ## Requirements
 
-- Python >=2.7
+- Python >=3.0

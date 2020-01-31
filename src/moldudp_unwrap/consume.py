@@ -84,9 +84,10 @@ def format_gap_bookend_headers (packet_stream, min_seq=None, max_seq=None):
         last_seq = seq
         last_fmt = fmt
 
-def _format_unpacked_headers ((sesNum, seqNum, msgs)):
+def _format_unpacked_headers (docket):
+    (sesNum, seqNum, msgs) = docket
     return "SessionNum=%d SeqNum=%d MsgCount=%d MsgSizes=%s" % \
-        (sesNum, seqNum, len(msgs), map(len, msgs))
+        (sesNum, seqNum, len(msgs), list(map(len, msgs)))
 
 def _format_bookend (open_fmt, close_fmt):
     prefix = "------------------------------------------------------------"
@@ -125,6 +126,7 @@ def _is_lower_upper_in_range (lower, upper, min_seq, max_seq):
     return _in_seq_range(upper, min_seq, None) and \
         _in_seq_range(lower, None, max_seq)
 
-def _is_header_in_range ((_, seq_num, msgs), min_seq, max_seq):
+def _is_header_in_range (docket, min_seq, max_seq):
+    (_, seq_num, msgs) = docket
     end_seq = seq_num + len(msgs) - 1
     return _is_lower_upper_in_range(seq_num, end_seq, min_seq, max_seq)

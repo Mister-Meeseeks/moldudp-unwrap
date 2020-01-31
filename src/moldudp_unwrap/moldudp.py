@@ -37,16 +37,16 @@ max_seq = int(args.endSeq) if len(args.endSeq) else None
 def read_and_print_headers (in_stream):
     for fmt_str in consume.format_packet_stream_headers\
         (in_stream, min_seq, max_seq):
-        print fmt_str
+        print(fmt_str)
 
 def read_and_print_gap_headers (in_stream):
     for fmt_str in consume.format_gap_bookend_headers\
         (in_stream, min_seq, max_seq):
-        print fmt_str
+        print(fmt_str)
 
 def join_and_print_msg_headers (in_stream):
     for fmt_str in consume.format_header_msg_joins(in_stream, min_seq, max_seq):
-        print fmt_str
+        print(fmt_str)
 
 def parse_multicast (dest_arg):
     (ipAddr, port) = dest_arg.split(":")
@@ -61,7 +61,7 @@ elif (args.gapSeq):
 elif (args.echo):
     consume.split_packets_from_stream(in_stream, out_stream, min_seq, max_seq)
 elif (args.multicast is not None and len(args.multicast) > 0):
-    mult_dests = map(parse_multicast, args.multicast)
+    mult_dests = list(map(parse_multicast, args.multicast))
     cast_socket = multicast.Multicaster(mult_dests, int(args.throttle))
     consume.split_packets_from_stream(in_stream, cast_socket, min_seq, max_seq)
 else:
