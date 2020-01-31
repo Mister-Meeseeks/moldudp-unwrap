@@ -28,8 +28,8 @@ parser.add_argument('--echo', action="store_true",
                     + "'cat' unless parse broke. Used for testing")
 args = parser.parse_args()
 
-in_stream = sys.stdin
-out_stream = sys.stdout
+in_stream = sys.stdin.buffer
+out_stream = sys.stdout.buffer
 
 min_seq = int(args.beginSeq) if len(args.beginSeq) else None
 max_seq = int(args.endSeq) if len(args.endSeq) else None

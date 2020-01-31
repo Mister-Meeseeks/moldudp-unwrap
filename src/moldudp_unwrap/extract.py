@@ -70,7 +70,7 @@ def _unpack_msgs_from_scans (scan_rets):
 
 def _join_bytes_from_scans (scan_rets):
     unpacked_bytes = [i[1] for i in scan_rets]
-    return reduce(lambda x,y: x+y, unpacked_bytes, "")
+    return reduce(lambda x,y: x+y, unpacked_bytes, bytearray())
 
 def _scan_message (byte_source):
     (msg_size, size_bytes) = _pop_message_size(byte_source)

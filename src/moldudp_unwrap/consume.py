@@ -4,7 +4,6 @@ Library contains functions transforming MoldUDP packet streams various
 parsed inputs.
 """
 
-
 import struct
 import extract as ex
 
